@@ -2,19 +2,43 @@ plugins {
     id 'java'
 }
 
-group = 'org.example'
+group = 'com.example'
 version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
 
+def selenideVersion = '7.7.3'
+def junitVersion = '5.10.0'
+
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.10.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // Selenide для main кода (теперь implementation)
+    implementation "com.codeborne:selenide:$selenideVersion"
+
+    // JUnit 5 для тестов
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junitVersion"
+
+    // AssertJ
+    testImplementation "org.assertj:assertj-core:3.24.2"
+
+    // Логирование
+    testImplementation "org.slf4j:slf4j-simple:2.0.9"
 }
 
 test {
     useJUnitPlatform()
+    systemProperties System.getProperties()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat = 'full'
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
 }
