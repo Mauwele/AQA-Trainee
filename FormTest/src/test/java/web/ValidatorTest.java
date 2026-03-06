@@ -91,7 +91,7 @@ public class ValidatorTest {
     public void testEmptyFormSubmission() {
         validatorPage.clearInputField()
                 .submitForm()
-                .verifyEnterValueMessage();  // Изменено с verifyEmptyFieldMessage
+                .verifyEnterValueMessage();
     }
 
     @Test

@@ -95,12 +95,6 @@ public class ValidatorPage {
         return this;
     }
 
-    public ValidatorPage verifyMessageNotError() {
-        // Проверяем, что сообщение изменилось на актуальное для сайта
-        resultMessage.shouldNotHave(Condition.cssClass("error"));
-        resultMessage.shouldHave(Condition.text("🔹 введите значение")); // <-- ИЗМЕНЕНО
-        return this;
-    }
 
     public String getResultMessageText() {
         return resultMessage.getText();
